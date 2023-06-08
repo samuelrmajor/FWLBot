@@ -5,7 +5,7 @@ Description:
 
 Version: 5.5.0
 """
-
+from dotenv import load_dotenv
 import asyncio
 import json
 import logging
@@ -20,6 +20,9 @@ from discord.ext import commands, tasks
 from discord.ext.commands import Bot, Context
 
 import exceptions
+
+load_dotenv()
+DISCORD_BOT_TOKEN = os.getenv('DISCORD_BOT_TOKEN')
 
 if not os.path.isfile(f"{os.path.realpath(os.path.dirname(__file__))}/config.json"):
     sys.exit("'config.json' not found! Please add it and try again.")
@@ -302,4 +305,4 @@ async def load_cogs() -> None:
 
 asyncio.run(init_db())
 asyncio.run(load_cogs())
-bot.run(config["token"])
+bot.run(DISCORD_BOT_TOKEN)
